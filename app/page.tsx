@@ -1,99 +1,139 @@
-import React from "react";
+"use client";
 
-export default function Cv() {
+import React, { useEffect, useState } from "react";
+
+const sections = ["home", "about", "server", "projects", "contact"];
+
+const smoothScrollTo = (targetId: string, offset = 0) => {
+  const target = document.querySelector(targetId);
+  if (!target) return;
+  const navbarHeight = 96;
+  const targetPosition =
+    target.getBoundingClientRect().top + window.pageYOffset + offset;
+  window.scrollTo({
+    top: targetPosition - navbarHeight,
+    behavior: "smooth",
+  });
+};
+
+export default function Navbar() {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("");
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      { threshold: 0.6 }
+    );
+    sections.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 50);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const navItems = [
+    { id: "home", label: "Home" },
+    { id: "about", label: "About" },
+    { id: "server", label: "Server" },
+    { id: "projects", label: "Projects" },
+    { id: "contact", label: "Contact" },
+  ];
+
   return (
-    <>
-      {/* Fixed Navbar */}
-      <nav className="bg-gray-800 text-white px-8 py-6 fixed w-full top-0 z-50 shadow-md">
-        <div className="container mx-auto flex justify-between items-center">
-          <div className="text-xl font-bold">MySite</div>
-          <ul className="flex space-x-6">
-            <li>
-              <a href="#home" className="hover:text-yellow-400 text-2xl">
-                Home
-              </a>
-            </li>
-            <li>
-              <a href="#about" className="hover:text-yellow-400 text-2xl">
-                About
-              </a>
-            </li>
-            <li>
-              <a href="#server" className="hover:text-yellow-400 text-2xl">
-                Server
-              </a>
-            </li>
-            <li>
-              <a
-                href="#projects"
-                className="hover:text-yellow-400text-2xl  text-2xl"
+    <nav
+      className={`fixed w-full z-50 px-8 py-8 transition-all ${
+        scrolled
+          ? "bg-[#1a2f3c]/90 backdrop-blur shadow-[0_8px_30px_rgba(0,0,0,0.9)]"
+          : "bg-[#1a2f3c]/95 shadow-[0_6px_20px_rgba(0,0,0,0.7)]"
+      } text-white`}
+    >
+      <div className="container mx-auto flex justify-between items-center">
+        <div className="text-2xl font-bold">Portfolio</div>
+
+        {/* Desktop menu */}
+        <ul className="hidden md:flex space-x-10">
+          {navItems.map(({ id, label }) => (
+            <li key={id}>
+              <button
+                onClick={() =>
+                  smoothScrollTo(
+                    `#${id}`,
+                    id === "about" ? -240 : id === "server" ? -50 : 0
+                  )
+                }
+                className={`relative text-2xl cursor-pointer transition-colors duration-200 ${
+                  activeSection === id
+                    ? "text-[#3abaa8]"
+                    : "hover:text-[#3abaa8]"
+                } nav-link`}
               >
-                Projects
-              </a>
+                {label}
+              </button>
             </li>
-            <li>
-              <a href="#photo" className="hover:text-yellow-400 text-2xl">
-                Photo
-              </a>
-            </li>
-            <li>
-              <a href="#contact" className="hover:text-yellow-400 text-2xl">
-                Contact
-              </a>
-            </li>
+          ))}
+        </ul>
+
+        {/* Hamburger for mobile */}
+        {/* Hamburger for mobile */}
+        <div className="md:hidden">
+          {!menuOpen && (
+            <button onClick={() => setMenuOpen(true)} className="text-3xl">
+              ☰
+            </button>
+          )}
+        </div>
+      </div>
+
+      {/* Mobile menu */}
+      {menuOpen && (
+        <div className="md:hidden fixed top-0 right-0 sm:w-[20%] w-[25%] h-screen bg-[#1a2f3c]/90 backdrop-blur shadow-[0_8px_30px_rgba(0,0,0,0.9)] z-50 p-4 text-right rounded-l-xl">
+          {/* ปุ่มกากบาททับบนสุด */}
+          <button
+            onClick={() => setMenuOpen(false)}
+            className="text-3xl absolute top-10 right-14"
+            aria-label="Close menu"
+          >
+            ✕
+          </button>
+
+          <ul className="flex flex-col space-y-6 mt-20">
+            {navItems.map(({ id, label }) => (
+              <li key={id}>
+                <button
+                  onClick={() => {
+                    smoothScrollTo(
+                      `#${id}`,
+                      id === "about" ? -240 : id === "server" ? -50 : 0
+                    );
+                    setMenuOpen(false);
+                  }}
+                  className={`text-lg w-full py-2 px-3 rounded-lg transition-colors duration-200 ${
+                    activeSection === id
+                      ? "text-[#3abaa8] bg-[#3abaa8]/10"
+                      : "hover:bg-white/10 active:bg-white/20 hover:text-[#3abaa8]"
+                  }`}
+                >
+                  {label}
+                </button>
+              </li>
+            ))}
           </ul>
         </div>
-      </nav>
-
-      {/* Page Content */}
-      <main className="pt-24 px-6 space-y-24 scroll-smooth">
-        <section id="home" className="scroll-mt-24">
-          <div className="flex items-center justify-center min-h-screen">
-            <div className="relative w-[1500px] h-[1400px] overflow-hidden rounded-lg ">
-              {/* ชั้นภาพชัดเจน อยู่ตรงกลางขนาดเต็มกล่อง */}
-              <div
-                className="absolute inset-12 bg-center bg-cover rounded-lg"
-                style={{ backgroundImage: "url('/m.jpg')" }}
-              ></div>
-
-              {/* กล่องข้อความอยู่บนสุด */}
-              <div className="relative z-10 flex items-center justify-center h-full px-12">
-                <div className="ackdrop-blur-md text-white p-8 rounded-lg text-center shadow-xl max-w-md mx-auto">
-                  <h2 className="text-3xl font-bold mb-4 ">
-                    PHONSINEE KITCHAAUM
-                  </h2>
-                  <p>Frontend Developer</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section id="about" className="scroll-mt-24">
-          <h2 className="text-3xl font-bold mb-4">About</h2>
-          <p>This is the about section of your CV.</p>
-        </section>
-
-        <section id="server" className="scroll-mt-24">
-          <h2 className="text-3xl font-bold mb-4">Server</h2>
-          <p>Information about your server or backend.</p>
-        </section>
-
-        <section id="projects" className="scroll-mt-24">
-          <h2 className="text-3xl font-bold mb-4">Projects</h2>
-          <p>Showcase your past work or personal projects.</p>
-        </section>
-
-        <section id="photo" className="scroll-mt-24">
-          <h2 className="text-3xl font-bold mb-4">Photo</h2>
-          <p>Gallery or image section.</p>
-        </section>
-
-        <section id="contact" className="scroll-mt-24 mb-10">
-          <h2 className="text-3xl font-bold mb-4">Contact</h2>
-          <p>Contact information or contact form.</p>
-        </section>
-      </main>
-    </>
+      )}
+    </nav>
   );
 }
