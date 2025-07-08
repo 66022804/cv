@@ -467,13 +467,13 @@ export default function CV() {
                 : "opacity-0 translate-y-10"
             } ${aboutAnimate ? "bounce-in" : ""}`}
           >
-            <h2 className="lg:text-4xl md:text-3xl sm:text-2xl text-xl font-bold md:mb-3 mb-5  text-center ">
+            <h2 className="lg:text-4xl md:text-3xl sm:text-2xl text-xl font-bold md:mb-3 mb-5  text-center text-black">
               About
             </h2>
             <div className="flex flex-col md:flex-row items-center gap-10 max-w-6xl 2xl:mx-auto xl:mx-12 lg:mx-10 md:mx-7 sm:mx-8 mx-4 ">
               {/* รูปวงกลมด้านซ้าย */}
               <div
-                className={`relative 2xl:w-[750px] 2xl:h-72 xl:w-[650px] xl:h-64 lg:w-[600px] lg:h-52 md:w-[500px] md:h-36 sm:w-[150px] sm:h-36 w-[120px] h-30 rounded-full overflow-hidden shadow-lg ${
+                className={`relative 2xl:w-[750px] 2xl:h-72 xl:w-[650px] xl:h-64 lg:w-[560px] lg:h-52 md:w-[480px] md:h-36 sm:w-[150px] sm:h-36 w-[120px] h-30 rounded-full overflow-hidden shadow-lg ${
                   aboutVisible ? "slide-in-left" : "opacity-0"
                 }`}
               >
@@ -487,7 +487,7 @@ export default function CV() {
 
               {/* ข้อความด้านขวา */}
               <div className="space-y-6 text-left">
-                <p className="xl:text-xl lg:text-lg md:text-md sm:text-sm text-sm">
+                <p className="xl:text-xl lg:text-lg md:text-md sm:text-sm text-sm text-black">
                   I&apos;m a third-year Software Engineering student at
                   University of Phayao, looking for an internship opportunity
                   from April to May. Eager to learn, contribute, and gain
