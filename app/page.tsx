@@ -285,7 +285,7 @@ export default function CV() {
               <li key={id}>
                 <button
                   onClick={() => smoothScrollTo(`#${id}`, getOffset(id))}
-                  className={`relative xl:text-2xl lg:text-xl md:text-lg sm:text-md cursor-pointer transition-colors duration-200 ${
+                  className={`relative xl:text-2xl lg:text-xl md:text-lg sm:text-md text-sm cursor-pointer transition-colors duration-200 ${
                     activeSection === id
                       ? "text-[#3abaa8]"
                       : "hover:text-[#3abaa8]"
@@ -315,7 +315,7 @@ export default function CV() {
           <div className="md:hidden fixed top-0 right-0 sm:w-[18%] w-[20%] h-screen bg-[#1a2f3c]/90 backdrop-blur shadow-[0_8px_30px_rgba(0,0,0,0.9)] z-50 p-4 text-right rounded-l-xl">
             <button
               onClick={() => setMenuOpen(false)}
-              className="sm:text-3xl text-2xl absolute sm:top-8 sm:right-12 right-8"
+              className="sm:text-3xl text-2xl absolute sm:top-8 sm:right-12 right-5"
               aria-label="Close menu"
             >
               ✕
