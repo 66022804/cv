@@ -386,6 +386,15 @@ export default function CV() {
             .delay-3 {
               animation-delay: 6s;
             }
+            .delay-4 {
+              animation-delay: 8s;
+            }
+            .delay-5 {
+              animation-delay: 10s;
+            }
+            .delay-6 {
+              animation-delay: 12s;
+            }
           `}</style>
 
           <div className="flex flex-row w-full 2xl:min-h-screen xl:h-[700px] lg:h-[580px] md:h-[480px] sm:h-[450px] h-[300px]  bg-gradient-to-r from-[#3abaa8] to-[#232323] text-white">
@@ -401,8 +410,20 @@ export default function CV() {
                 “I’m learning to build not just websites — but experiences.”
               </p>
 
-              <p className="text-white 2xl:text-4xl xl:text-3xl lg:text-xl md:text-lg sm:text-md text-sm xl:pl-36   font-bold sm:py-2 sm:px-6 px-4 transition float-up-fade-in-out delay-3">
+              <p className="text-white 2xl:text-4xl xl:text-3xl lg:text-xl md:text-lg sm:text-md text-xs xl:pl-36   font-bold sm:py-2 sm:px-6 px-4 transition float-up-fade-in-out delay-3">
                 Frontend Developer
+              </p>
+
+              <p className="text-white 2xl:text-4xl xl:text-3xl lg:text-xl md:text-lg sm:text-md text-xs xl:pl-36   font-bold sm:py-2 sm:px-6 px-4 transition float-up-fade-in-out delay-4">
+                Software Testing / QA
+              </p>
+
+              <p className="text-white 2xl:text-4xl xl:text-3xl lg:text-xl md:text-lg sm:text-md text-xs xl:pl-36   font-bold sm:py-2 sm:px-6 px-4 transition float-up-fade-in-out delay-5">
+                UX/UI Design
+              </p>
+
+              <p className="text-white 2xl:text-4xl xl:text-3xl lg:text-xl md:text-lg sm:text-md text-xs xl:pl-36   font-bold sm:py-2 sm:px-6 px-4 transition float-up-fade-in-out delay-6">
+                Business Analysis
               </p>
             </div>
 
@@ -467,13 +488,13 @@ export default function CV() {
                 : "opacity-0 translate-y-10"
             } ${aboutAnimate ? "bounce-in" : ""}`}
           >
-            <h2 className="lg:text-4xl md:text-3xl sm:text-2xl text-xl font-bold md:mb-3 mb-5  text-center text-black">
+            <h2 className="lg:text-4xl md:text-3xl sm:text-2xl text-xl font-bold md:mb-8 mb-5  text-center text-black">
               About
             </h2>
-            <div className="flex flex-col md:flex-row items-center gap-10 max-w-6xl 2xl:mx-auto xl:mx-12 lg:mx-10 md:mx-7 sm:mx-8 mx-4 ">
+            <div className="flex flex-col xl:flex-row items-center gap-10 max-w-6xl 2xl:mx-auto xl:mx-12 lg:mx-20 md:mx-10 sm:mx-8 mx-4 ">
               {/* รูปวงกลมด้านซ้าย */}
               <div
-                className={`relative 2xl:w-[750px] 2xl:h-72 xl:w-[650px] xl:h-64 lg:w-[500px] lg:h-52 md:w-[400px] md:h-36 sm:w-[150px] sm:h-36 w-[120px] h-30 rounded-full overflow-hidden shadow-lg ${
+                className={`relative 2xl:w-[1000px] 2xl:h-64 xl:w-[800px] xl:h-52 lg:w-[200px] lg:h-52 md:w-[180px] md:h-44 sm:w-[150px] sm:h-36 w-[120px] h-30 rounded-full overflow-hidden shadow-lg ${
                   aboutVisible ? "slide-in-left" : "opacity-0"
                 }`}
               >
@@ -488,11 +509,13 @@ export default function CV() {
               {/* ข้อความด้านขวา */}
               <div className="space-y-6 text-left">
                 <p className="xl:text-xl lg:text-lg md:text-md sm:text-sm text-sm text-black">
-                  I&apos;m a third-year Software Engineering student at
-                  University of Phayao, looking for an internship opportunity
-                  from April to May. Eager to learn, contribute, and gain
-                  real-world insights in software development. Excited to join
-                  your team. Thank you.
+                  I am a third-year Software Engineering student at the
+                  University of Phayao, seeking an internship from November 2025
+                  to March 2026. I am passionate about learning and contributing
+                  to real-world software development projects. My interests
+                  include Frontend Development, Software Testing / QA, UX/UI
+                  Design, and Business Analysis. I am excited to collaborate
+                  with a team and gain hands-on experience.
                 </p>
 
                 <div className="flex flex-wrap xl:flex-nowrap gap-4">
