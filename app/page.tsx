@@ -499,7 +499,7 @@ export default function CV() {
                 }`}
               >
                 <Image
-                  src="/m.jpg"
+                  src="/9.jpg"
                   alt="Profile"
                   fill
                   className="object-cover"
