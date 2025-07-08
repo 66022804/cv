@@ -400,7 +400,7 @@ export default function CV() {
           <div className="flex flex-row w-full 2xl:min-h-screen xl:h-[700px] lg:h-[580px] md:h-[480px] sm:h-[450px] h-[300px]  bg-gradient-to-r from-[#3abaa8] to-[#232323] text-white">
             {/* Left Section */}
             <div className="flex flex-col justify-center sm:p-10 p-6  pt-30  lg:p-20 flex-1">
-              <h1 className="2xl:text-5xl xl:text-4xl lg:text-3xl md:text-2xl  sm:text-xl text-sm font-bold uppercase leading-tight float-up-fade-in-out delay-0">
+              <h1 className="2xl:text-5xl xl:text-4xl lg:text-3xl md:text-2xl  sm:text-xl text-xs font-bold uppercase leading-tight float-up-fade-in-out delay-0">
                 PHONSINEE KITCHAAUM <br />
               </h1>
 
