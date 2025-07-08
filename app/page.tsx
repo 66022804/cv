@@ -9,28 +9,28 @@ const images = ["/bg.jpg", "/1.jpg", "/2.jpg"];
 const getOffset = (id: string) => {
   const width = window.innerWidth;
   if (id === "about") {
-    if (width >= 1536) return -100;
-    if (width >= 1280) return -65;
+    if (width >= 1536) return -120;
+    if (width >= 1280) return -100;
     if (width >= 1024) return -55;
-    if (width >= 768) return -45;
+    if (width >= 768) return -60;
     if (width >= 640) return -30;
     return 0;
   }
   if (id === "service") {
     if (width >= 1536) return -60;
     if (width >= 1280) return -60;
-    if (width >= 1024) return -55;
+    if (width >= 1024) return -82;
     if (width >= 768) return -45;
-    if (width >= 640) return -35;
+    if (width >= 640) return -150;
     return -30;
   }
   if (id === "projects") {
-    if (width >= 1536) return -70;
-    if (width >= 1280) return -60;
-    if (width >= 1024) return -55;
-    if (width >= 768) return -45;
-    if (width >= 640) return -35;
-    return -30;
+    if (width >= 1536) return -30;
+    if (width >= 1280) return 20;
+    if (width >= 1024) return 30;
+    if (width >= 768) return 40;
+    if (width >= 640) return 50;
+    return 70;
   }
 
   if (id === "contact") {
@@ -239,6 +239,32 @@ export default function CV() {
     });
   };
 
+  // project
+  const sectionRef = useRef<HTMLElement>(null);
+  const [animate, setAnimate] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setAnimate(false);
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+              setAnimate(true);
+            });
+          });
+        }
+      },
+      { threshold: 0.5 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <>
       <nav
@@ -391,10 +417,9 @@ export default function CV() {
             />
           </div>
         </section>
-
         <section
           id="about"
-          className="scroll-mt-24 2xl:mt-40 md:mt-5 xl:mt-32  px-6"
+          className="scroll-mt-24 2xl:mt-40 lg:mt-5 xl:mt-32 md:mt-40  px-6"
         >
           <style>{`
   @keyframes bounce-in {
@@ -586,7 +611,7 @@ export default function CV() {
 
         <section
           id="service"
-          className="scroll-mt-24 2xl:mt-40 md:mt-5 lg:mt-36 mb-10 px-6"
+          className="scroll-mt-24 2xl:mt-40 md:mt-36 lg:mt-36 md:mb-10 sm:mt-52 mt-40 px-6"
         >
           <style>{`
     @keyframes fade-in-up {
@@ -722,12 +747,11 @@ export default function CV() {
   animation: slide-in-down 3s ease forwards;
 }
  `}</style>
-
         <section
           id="projects"
-          className="2xl:px-10 xl:px-14 lg:px-10 md:px-5 sm:px-32 px-14  mt-5 bg-white text-gray-800"
+          className="2xl:px-10 xl:px-14 lg:px-10 md:px-5 sm:px-32 px-14  lg:mt-5 md:mt-20 sm:mt-40 bg-white text-gray-800"
         >
-          <h2 className="xl:text-4xl text-3xl font-bold text-center py-18 pt-20">
+          <h2 className="xl:text-4xl text-3xl font-bold text-center sm:py-18 py-10 pt-20">
             Projects
           </h2>
 
@@ -803,9 +827,111 @@ export default function CV() {
           </div>
         </section>
 
-        <section id="contact" className="scroll-mt-24 mb-10  px-6">
-          <h2 className="text-3xl font-bold mb-4">Contact</h2>
-          <p>Contact information or contact form.</p>
+        <style>{`
+        @keyframes bounce-in-down {
+          0% {
+            opacity: 0;
+            transform: translateY(-50px);
+          }
+          60% {
+            opacity: 1;
+            transform: translateY(20px);
+          }
+          80% {
+            transform: translateY(-10px);
+          }
+          100% {
+            transform: translateY(0);
+          }
+        }
+        .bounce-in-down {
+          animation: bounce-in-down 1s cubic-bezier(0.215, 0.610, 0.355, 1.000) forwards;
+        }
+      `}</style>
+
+        <section
+          ref={sectionRef}
+          id="contact"
+          className={`scroll-mt-24 xl:my-72 lg:my-60 mt-36 px-6 ${
+            animate ? "bounce-in-down" : ""
+          }`}
+        >
+          <h2 className="lg:text-4xl md:text-3xl sm:text-2xl text-xl font-bold 2xl:mb-18 lg:mb-14 mb-10  text-center">
+            Contact
+          </h2>
+
+          <div className="flex justify-center items-center flex-wrap lg:gap-12 md:gap-10 sm:gap-8 gap-6 mt-10 2xl:mb-96 xl:mb-72 lg:mb-56 md:mb-40 sm:mb-32 mb-28">
+            <a
+              href="https://www.facebook.com/phonsinee.kitchaaum"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <div className="relative w-9 sm:w-10 md:w-12 2xl:w-20 xl:w-18 lg:w-14 aspect-square">
+                <Image
+                  src="/f.png"
+                  alt="facebook Icon"
+                  fill
+                  className="object-contain transition duration-300 hover:opacity-70"
+                />
+              </div>
+            </a>
+
+            <a
+              href="https://www.linkedin.com/in/phonsinee-undefined-163377372/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <div className="relative w-9 sm:w-10 md:w-12 2xl:w-20 xl:w-18 lg:w-14 aspect-square">
+                <Image
+                  src="/in.png"
+                  alt="linkedin Icon"
+                  fill
+                  className="object-contain transition duration-300 hover:opacity-70"
+                />
+              </div>
+            </a>
+
+            <a
+              href="https://github.com/66022804"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <div className="relative w-9 sm:w-10 md:w-12 2xl:w-20 xl:w-18 lg:w-14 aspect-square">
+                <Image
+                  src="/github.png"
+                  alt="github Icon"
+                  fill
+                  className="object-contain transition duration-300 hover:opacity-70"
+                />
+              </div>
+            </a>
+
+            <a
+              href="https://www.instagram.com/gift._028/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <div className="relative w-9 sm:w-10 md:w-12 2xl:w-20 xl:w-18 lg:w-14 aspect-square">
+                <Image
+                  src="/ig.png"
+                  alt="instagram Icon"
+                  fill
+                  className="object-contain transition duration-300 hover:opacity-70"
+                />
+              </div>
+            </a>
+
+            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=phonsinee48@gmail.com">
+              <div className="relative w-9 sm:w-10 md:w-12 2xl:w-20 xl:w-18 lg:w-14 aspect-square">
+                <Image
+                  src="/gmail.png"
+                  alt="gmail Icon"
+                  fill
+                  className="object-contain transition duration-300 hover:opacity-70"
+                />
+              </div>
+            </a>
+          </div>
         </section>
       </main>
     </>
