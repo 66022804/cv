@@ -6,6 +6,44 @@ import Image from "next/image";
 const sections = ["home", "about", "service", "projects", "contact"];
 const images = ["/bg.jpg", "/1.jpg", "/2.jpg"];
 
+const getOffset = (id: string) => {
+  const width = window.innerWidth;
+  if (id === "about") {
+    if (width >= 1536) return -100;
+    if (width >= 1280) return -65;
+    if (width >= 1024) return -55;
+    if (width >= 768) return -45;
+    if (width >= 640) return -30;
+    return 0;
+  }
+  if (id === "service") {
+    if (width >= 1536) return -60;
+    if (width >= 1280) return -60;
+    if (width >= 1024) return -55;
+    if (width >= 768) return -45;
+    if (width >= 640) return -35;
+    return -30;
+  }
+  if (id === "projects") {
+    if (width >= 1536) return -70;
+    if (width >= 1280) return -60;
+    if (width >= 1024) return -55;
+    if (width >= 768) return -45;
+    if (width >= 640) return -35;
+    return -30;
+  }
+
+  if (id === "contact") {
+    if (width >= 1536) return -50;
+    if (width >= 1280) return -45;
+    if (width >= 1024) return -40;
+    if (width >= 768) return -35;
+    if (width >= 640) return -25;
+    return -20;
+  }
+  return 0;
+};
+
 const smoothScrollTo = (targetId: string, offset = 0) => {
   const target = document.querySelector(targetId);
   if (!target) return;
@@ -125,6 +163,82 @@ export default function CV() {
     };
   }, []);
 
+  /* Projects SECTION */
+  const projectRefs = useRef([
+    React.createRef<HTMLDivElement>(),
+    React.createRef<HTMLDivElement>(),
+    React.createRef<HTMLDivElement>(),
+  ]);
+
+  const [visible, setVisible] = useState([false, false, false]);
+  const [expandedStates, setExpandedStates] = useState([false, false, false]);
+
+  useEffect(() => {
+    const currentRefs = projectRefs.current;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const index = currentRefs.findIndex(
+            (ref) => ref.current === entry.target
+          );
+          if (index !== -1) {
+            if (entry.isIntersecting) {
+              setVisible((prev) => {
+                const newArr = [...prev];
+                newArr[index] = true;
+                return newArr;
+              });
+            } else {
+              setVisible((prev) => {
+                const newArr = [...prev];
+                newArr[index] = false;
+                return newArr;
+              });
+
+              setExpandedStates((prev) => {
+                const newArr = [...prev];
+                newArr[index] = false; // reset อ่านเพิ่มเติมเมื่อออกนอกจอ
+                return newArr;
+              });
+            }
+          }
+        });
+      },
+      { threshold: 0.3 } // หรือ 0.5 ตามต้องการ
+    );
+
+    currentRefs.forEach((ref) => {
+      if (ref.current) observer.observe(ref.current);
+    });
+
+    return () => {
+      currentRefs.forEach((ref) => {
+        if (ref.current) observer.unobserve(ref.current);
+      });
+    };
+  }, []);
+
+  // ข้อความเต็มของแต่ละโปรเจกต์
+  const fullTexts = [
+    "This website serves as a forum platform focused on university-related topics. Users can share personal stories, ask questions, and engage in discussions related to their academic environment. Experienced members provide valuable insights, helping create a supportive and informative space.",
+    "This is a coding practice website that allows users to adjust difficulty levels and supports multiple programming languages, including algorithms, JavaScript, Python, and Java. The site provides timed coding challenges and a ranking system to display user performance.",
+    "This is a recipe suggestion website designed for those unsure of what to eat. Users can enter available ingredients, and the system will display a variety of recipes to choose from. Additionally, users can share their own recipes, allowing others to try and follow them.",
+  ];
+
+  // ตัดข้อความ preview (100 ตัวอักษร)
+  const getPreviewText = (text: string) =>
+    text.length > 100 ? text.slice(0, 100) + "..." : text;
+
+  // กดปุ่มอ่านเพิ่มเติม / อ่านน้อยลง
+  const toggleExpand = (index: number) => {
+    setExpandedStates((prev) => {
+      const newStates = [...prev];
+      newStates[index] = !newStates[index];
+      return newStates;
+    });
+  };
+
   return (
     <>
       <nav
@@ -144,12 +258,7 @@ export default function CV() {
             {navItems.map(({ id, label }) => (
               <li key={id}>
                 <button
-                  onClick={() =>
-                    smoothScrollTo(
-                      `#${id}`,
-                      id === "about" ? -240 : id === "server" ? -55 : 0
-                    )
-                  }
+                  onClick={() => smoothScrollTo(`#${id}`, getOffset(id))}
                   className={`relative xl:text-2xl lg:text-xl md:text-lg sm:text-md cursor-pointer transition-colors duration-200 ${
                     activeSection === id
                       ? "text-[#3abaa8]"
@@ -191,10 +300,7 @@ export default function CV() {
                 <li key={id}>
                   <button
                     onClick={() => {
-                      smoothScrollTo(
-                        `#${id}`,
-                        id === "about" ? -240 : id === "server" ? -50 : 0
-                      );
+                      smoothScrollTo(`#${id}`, getOffset(id));
                       setMenuOpen(false);
                     }}
                     className={`sm:text-lg text-sm w-full py-2 sm:px-3 rounded-lg transition-colors duration-200 ${
@@ -286,7 +392,10 @@ export default function CV() {
           </div>
         </section>
 
-        <section id="about" className="scroll-mt-24 mt-60 px-6">
+        <section
+          id="about"
+          className="scroll-mt-24 2xl:mt-40 md:mt-5 xl:mt-32  px-6"
+        >
           <style>{`
   @keyframes bounce-in {
     0% {
@@ -333,13 +442,13 @@ export default function CV() {
                 : "opacity-0 translate-y-10"
             } ${aboutAnimate ? "bounce-in" : ""}`}
           >
-            <h2 className="lg:text-4xl md:text-3xl sm:text-2xl text-xl font-bold md:mb-3 mb-5 text-center ">
+            <h2 className="lg:text-4xl md:text-3xl sm:text-2xl text-xl font-bold md:mb-3 mb-5  text-center ">
               About
             </h2>
             <div className="flex flex-col md:flex-row items-center gap-10 max-w-6xl 2xl:mx-auto xl:mx-12 lg:mx-10 md:mx-7 sm:mx-8 mx-4 ">
               {/* รูปวงกลมด้านซ้าย */}
               <div
-                className={`relative 2xl:w-[750px] 2xl:h-80 xl:w-[650px] xl:h-64 lg:w-[600px] lg:h-52 md:w-[500px] md:h-36 sm:w-[150px] sm:h-36 w-[120px] h-30 rounded-full overflow-hidden shadow-lg ${
+                className={`relative 2xl:w-[750px] 2xl:h-72 xl:w-[650px] xl:h-64 lg:w-[600px] lg:h-52 md:w-[500px] md:h-36 sm:w-[150px] sm:h-36 w-[120px] h-30 rounded-full overflow-hidden shadow-lg ${
                   aboutVisible ? "slide-in-left" : "opacity-0"
                 }`}
               >
@@ -475,7 +584,10 @@ export default function CV() {
           </div>
         </section>
 
-        <section id="service" className="scroll-mt-24 mt-60 px-6">
+        <section
+          id="service"
+          className="scroll-mt-24 2xl:mt-40 md:mt-5 lg:mt-36 mb-10 px-6"
+        >
           <style>{`
     @keyframes fade-in-up {
       0% {
@@ -524,7 +636,7 @@ export default function CV() {
 
           <div
             ref={serviceRef}
-            className={`bg-gradient-to-r from-[#3abaa8] to-[#232323] flex flex-col justify-center text-center 2xl:px-28 2xl:py-36 xl:py-28 xl:px-24 lg:px-20 lg:py-20 md:px-8 md:py-14 sm:px-7 sm:py-10 px-5 py-8 rounded-[2rem] lg:mx-auto sm:mx-10 mx-5 w-fit text-white transition-all duration-700 ease-out ${
+            className={`bg-gradient-to-r from-[#3abaa8] to-[#232323] flex flex-col  justify-center text-center 2xl:px-28 2xl:py-36 xl:py-28 xl:px-24 lg:px-20 lg:py-20 md:px-8 md:py-14 sm:px-7 sm:py-10 px-5 py-8 rounded-[2rem] lg:mx-auto sm:mx-10 mx-5 w-fit text-white transition-all duration-700 ease-out ${
               serviceVisible
                 ? "opacity-100 translate-y-0"
                 : "opacity-0 translate-y-10"
@@ -532,7 +644,7 @@ export default function CV() {
           >
             {/* ✅ เพิ่ม class fade-in-up ชัดเจนเมื่อ serverVisible === true */}
             <h2
-              className={`lg:text-4xl md:text-3xl sm:text-2xl text-xl font-bold lg:mb-4 mb-2 ${
+              className={`lg:text-4xl md:text-3xl sm:text-2xl text-xl font-bold lg:mb-4 mb-2  ${
                 serviceAnimate ? "fade-in-up" : ""
               }`}
             >
@@ -593,6 +705,107 @@ export default function CV() {
               </div>
             </div>
           </div>
+        </section>
+
+        <style>{`
+@keyframes slide-in-down {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.slide-in-down {
+  animation: slide-in-down 3s ease forwards;
+}
+ `}</style>
+
+        <section
+          id="projects"
+          className="2xl:px-10 xl:px-14 lg:px-10 md:px-5 sm:px-32 px-14  mt-5 bg-white text-gray-800"
+        >
+          <h2 className="xl:text-4xl text-3xl font-bold text-center py-18 pt-20">
+            Projects
+          </h2>
+
+          <div className="flex flex-col md:flex-row md:flex-wrap justify-center 2xl:gap-18 md:gap-14 sm:gap-14 gap-10 ">
+            {[1, 2, 3].map((num, i) => (
+              <div
+                key={num}
+                ref={projectRefs.current[i]}
+                className={`bg-gray-100 rounded-2xl shadow-lg lg:p-6 md:p-8 sm:py-10 sm:px-7 px-5 py-7  w-full max-w-sm flex flex-col items-center text-center hover:shadow-2xl transition duration-300 ${
+                  visible[i] ? "slide-in-down" : "opacity-0 translate-y-8"
+                }`}
+              >
+                <div className="relative 2xl:w-[300px] 2xl:h-[200px] xl:w-[230] xl:h-[150] lg:w-[250px] lg:h-[180px] md:w-[250] md:h-[180] sm:w-[280px] sm:h-[190px] w-[230px] h-[140px]">
+                  <Image
+                    src={`/project${num}.png`}
+                    alt={`Project ${num}`}
+                    fill
+                    className="rounded-xl object-cover mb-4"
+                  />
+                </div>
+
+                <h3 className="xl:text-xl text-lg font-semibold mt-4">
+                  {num === 1
+                    ? "Stage website"
+                    : num === 2
+                    ? "Code writing practice website"
+                    : "cookzy"}
+                </h3>
+                <p className="p-2 text-sm leading-relaxed text-justify">
+                  {expandedStates[i]
+                    ? fullTexts[i]
+                    : getPreviewText(fullTexts[i])}
+                </p>
+                <button
+                  onClick={() => toggleExpand(i)}
+                  className="text-[#3abaa8] mt-2 font-semibold hover:underline"
+                >
+                  {expandedStates[i] ? "less" : "more"}
+                </button>
+
+                <div className="flex gap-4 mt-4">
+                  <a
+                    href={
+                      num === 1
+                        ? "https://www.figma.com/design/FrNXz7oBN18pjIV021FNgn/Design?node-id=0-1&p=f&t=i95LB8fRbOIyTlUp-0"
+                        : num === 2
+                        ? "https://www.figma.com/design/cPyGfpF9ZkJYBGb6I80h0O/UX-UI-coding-web-project?node-id=615-482&t=SzBNtwdNRYbTTf70-0"
+                        : "https://www.figma.com/design/F2e70oBKFuebGMwn7oogPs/Untitled--Copy-?node-id=0-1&p=f&t=ZuFJCAvK5G9m0fYT-0"
+                    }
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-4 py-2 bg-[#3abaa8] text-white rounded-xl hover:bg-[#2a9c8f] transition"
+                  >
+                    Figma
+                  </a>
+                  <a
+                    href={
+                      num === 1
+                        ? "https://github.com/AranchaiMoonkum/stage-website"
+                        : num === 2
+                        ? "https://github.com/korarit/coding-web-frontend"
+                        : "https://github.com/pskjksr/food"
+                    }
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-4 py-2 bg-gray-800 text-white rounded-xl hover:bg-gray-700 transition"
+                  >
+                    GitHub
+                  </a>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section id="contact" className="scroll-mt-24 mb-10  px-6">
+          <h2 className="text-3xl font-bold mb-4">Contact</h2>
+          <p>Contact information or contact form.</p>
         </section>
       </main>
     </>
