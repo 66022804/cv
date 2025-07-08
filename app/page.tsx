@@ -860,7 +860,7 @@ export default function CV() {
             Contact
           </h2>
 
-          <div className="flex justify-center items-center flex-wrap lg:gap-12 md:gap-10 sm:gap-8 gap-6 mt-10 2xl:mb-96 xl:mb-72 lg:mb-56 md:mb-40 sm:mb-32 mb-28">
+          <div className="flex justify-center items-center flex-wrap lg:gap-12 xl:gap-14 md:gap-10 sm:gap-8 gap-6 mt-10 2xl:mb-96 xl:mb-72 lg:mb-56 md:mb-40 sm:mb-32 mb-28">
             <a
               href="https://www.facebook.com/phonsinee.kitchaaum"
               target="_blank"
