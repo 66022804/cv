@@ -345,7 +345,7 @@ export default function CV() {
       </nav>
 
       {/* Page Content */}
-      <main className="space-y-24 scroll-smooth sm:overflow-x-hidden md:block overflow-x-hidden">
+      <main className="space-y-24 scroll-smooth sm:overflow-x-hidden md:block overflow-x-hidden bg-white ">
         <section id="home" className="scroll-mt-24">
           <style>{`
             @keyframes float-up-fade-in-out {
@@ -852,11 +852,11 @@ export default function CV() {
         <section
           ref={sectionRef}
           id="contact"
-          className={`bg-white dark:bg-white  scroll-mt-24 xl:my-72 lg:my-60 mt-36 px-6 ${
+          className={`bg-white   scroll-mt-24 xl:my-72 lg:my-60 mt-36 px-6 ${
             animate ? "bounce-in-down" : ""
           }`}
         >
-          <h2 className="lg:text-4xl md:text-3xl sm:text-2xl text-xl font-bold 2xl:mb-18 lg:mb-14 mb-10  text-center">
+          <h2 className="lg:text-4xl md:text-3xl sm:text-2xl text-xl font-bold 2xl:mb-18 lg:mb-14 mb-10 text-black text-center">
             Contact
           </h2>
 
