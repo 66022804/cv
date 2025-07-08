@@ -852,7 +852,7 @@ export default function CV() {
         <section
           ref={sectionRef}
           id="contact"
-          className={`scroll-mt-24 xl:my-72 lg:my-60 mt-36 px-6 ${
+          className={`bg-white dark:bg-white  scroll-mt-24 xl:my-72 lg:my-60 mt-36 px-6 ${
             animate ? "bounce-in-down" : ""
           }`}
         >
