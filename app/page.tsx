@@ -495,7 +495,7 @@ export default function CV() {
             <div className="flex flex-col xl:flex-row items-center gap-10 max-w-6xl 2xl:mx-auto xl:mx-12 lg:mx-20 md:mx-10 sm:mx-8 mx-4 ">
               {/* รูปวงกลมด้านซ้าย */}
               <div
-                className={`relative 2xl:w-[1000px] 2xl:h-72 xl:w-[800px] xl:h-52 lg:w-[200px] lg:h-52 md:w-[180px] md:h-44 sm:w-[150px] sm:h-36 w-[120px] h-30 rounded-full overflow-hidden shadow-lg ${
+                className={`relative 2xl:w-[900px] 2xl:h-64 xl:w-[800px] xl:h-52 lg:w-[200px] lg:h-52 md:w-[180px] md:h-44 sm:w-[150px] sm:h-36 w-[120px] h-30 rounded-full overflow-hidden shadow-lg ${
                   aboutVisible ? "slide-in-left" : "opacity-0"
                 }`}
               >
@@ -512,10 +512,10 @@ export default function CV() {
                 <p className="xl:text-xl lg:text-lg md:text-md sm:text-sm text-sm text-black">
                   I am a third-year Software Engineering student at the
                   University of Phayao, seeking an internship from March 2026 to
-                  August 2026. I am passionate about learning and contributing
-                  to real-world software development projects. My interests
-                  include Business Analysis, and I am excited to collaborate
-                  with a team and gain hands-on experience.
+                  September 2026. I am passionate about learning and
+                  contributing to real-world software development projects. My
+                  interests include Business Analysis, and I am excited to
+                  collaborate with a team and gain hands-on experience.
                 </p>
 
                 <div className="flex flex-wrap xl:flex-nowrap gap-4">
