@@ -410,7 +410,7 @@ export default function CV() {
                 “I’m learning to build not just websites — but experiences.”
               </p>
 
-              <p className="text-white 2xl:text-4xl xl:text-3xl lg:text-xl md:text-lg sm:text-md text-xs xl:pl-36   font-bold sm:py-2 sm:px-6 px-4 transition float-up-fade-in-out delay-3">
+              {/* <p className="text-white 2xl:text-4xl xl:text-3xl lg:text-xl md:text-lg sm:text-md text-xs xl:pl-36   font-bold sm:py-2 sm:px-6 px-4 transition float-up-fade-in-out delay-3">
                 Frontend Developer
               </p>
 
@@ -420,7 +420,7 @@ export default function CV() {
 
               <p className="text-white 2xl:text-4xl xl:text-3xl lg:text-xl md:text-lg sm:text-md text-xs xl:pl-36   font-bold sm:py-2 sm:px-6 px-4 transition float-up-fade-in-out delay-5">
                 UX/UI Design
-              </p>
+              </p> */}
 
               <p className="text-white 2xl:text-4xl xl:text-3xl lg:text-xl md:text-lg sm:text-md text-xs xl:pl-36   font-bold sm:py-2 sm:px-6 px-4 transition float-up-fade-in-out delay-6">
                 Business Analysis
@@ -510,11 +510,10 @@ export default function CV() {
               <div className="space-y-6 text-left">
                 <p className="xl:text-xl lg:text-lg md:text-md sm:text-sm text-sm text-black">
                   I am a third-year Software Engineering student at the
-                  University of Phayao, seeking an internship from November 2025
-                  to March 2026. I am passionate about learning and contributing
+                  University of Phayao, seeking an internship from March 2026 to
+                  August 2026. I am passionate about learning and contributing
                   to real-world software development projects. My interests
-                  include Frontend Development, Software Testing / QA, UX/UI
-                  Design, and Business Analysis. I am excited to collaborate
+                  include Business Analysis, and I am excited to collaborate
                   with a team and gain hands-on experience.
                 </p>
 
@@ -944,7 +943,7 @@ export default function CV() {
               </div>
             </a>
 
-            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=phonsinee48@gmail.com">
+            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=phonsinee20@gmail.com">
               <div className="relative w-9 sm:w-10 md:w-12 2xl:w-20 xl:w-18 lg:w-14 aspect-square">
                 <Image
                   src="/gmail.png"
