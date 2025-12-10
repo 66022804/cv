@@ -85,6 +85,7 @@ export default function CV() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+
   const navItems = [
     { id: "home", label: "Home" },
     { id: "about", label: "About" },
