@@ -495,7 +495,7 @@ export default function CV() {
             <div className="flex flex-col xl:flex-row items-center gap-10 max-w-6xl 2xl:mx-auto xl:mx-12 lg:mx-20 md:mx-10 sm:mx-8 mx-4 ">
               {/* รูปวงกลมด้านซ้าย */}
               <div
-                className={`relative 2xl:w-[1000px] 2xl:h-64 xl:w-[800px] xl:h-52 lg:w-[200px] lg:h-52 md:w-[180px] md:h-44 sm:w-[150px] sm:h-36 w-[120px] h-30 rounded-full overflow-hidden shadow-lg ${
+                className={`relative 2xl:w-[1000px] 2xl:h-72 xl:w-[800px] xl:h-52 lg:w-[200px] lg:h-52 md:w-[180px] md:h-44 sm:w-[150px] sm:h-36 w-[120px] h-30 rounded-full overflow-hidden shadow-lg ${
                   aboutVisible ? "slide-in-left" : "opacity-0"
                 }`}
               >
